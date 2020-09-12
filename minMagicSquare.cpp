@@ -62,22 +62,27 @@ int cost(vector<vector<int>> ar, vector<vector<int>> ip) {
 void fillMS(vector<vector<int>> ar,vector<vector<int>> ip, bool taken[],int i,int j,int s) {
 
     if (i == s - 1 && j == s - 1) {
+
         if (checkMS(ar))
             ans = min(ans, cost(ar, ip));
         return;
 
     }
-    for (int k = 0; k < 9; k++) {
-        if (taken[k] == false) {
-            ar[i][j] = k+1;
-            taken[k] = true;
-            if (j < s - 1)
-                fillMS(ar, ip, taken, i, j++, s);
-            else
-                fillMS(ar, ip, taken, i++, j, s);
-            taken[k] = false;
-        }
+    else {
+        for (int k = 1; k < 10; k++) {
+            //cout << taken[k] << endl;
+            if (taken[k] == false) {
 
+                ar[i][j] = k ;
+                taken[k] = true;
+                if (j < s - 1)
+                    fillMS(ar, ip, taken, i, j++, s);
+                else
+                    fillMS(ar, ip, taken, i++, j, s);
+                taken[k] = false;
+            }
+
+        }
     }
 
 }
@@ -107,7 +112,11 @@ int main()
 
 
 
-    bool taken[9];
+    bool taken[10];
+
+    for (int i = 0; i < 10;  i++) {
+        taken[i]=false;
+    }
 
     //cout << checkMS(test);
 
